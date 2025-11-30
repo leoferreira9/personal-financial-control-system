@@ -1,51 +1,39 @@
-package com.leonardo.Personal.Financial.Control.System.entity;
+package com.leonardo.Personal.Financial.Control.System.dto;
 
 import com.leonardo.Personal.Financial.Control.System.enums.TransactionType;
-import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-@Entity
-public class Transaction {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+public class TransactionCreateDTO {
 
     @NotBlank
-    @Column(nullable = false, length = 150)
+    @Size(max = 150)
     private String description;
 
     @DecimalMin(value = "0.0", inclusive = false)
-    @Column(nullable = false)
     private BigDecimal amount;
 
-    @Enumerated(EnumType.STRING)
+    @NotNull
     private TransactionType transactionType;
 
     @NotNull
-    @Column(nullable = false)
     private LocalDateTime date;
 
-    @ManyToOne
-    @JoinColumn(name = "account_id")
-    private Account account;
+    @NotNull
+    private Long accountId;
 
-    @ManyToOne
-    @JoinColumn(name = "category_id")
-    private Category category;
+    @NotNull
+    private Long categoryId;
 
-    public Transaction(){}
+    @NotNull
+    private Long userId;
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
+    public TransactionCreateDTO(){}
 
     public String getDescription() {
         return description;
@@ -79,19 +67,27 @@ public class Transaction {
         this.date = date;
     }
 
-    public Account getAccount() {
-        return account;
+    public Long getAccountId() {
+        return accountId;
     }
 
-    public void setAccount(Account account) {
-        this.account = account;
+    public void setAccountId(Long accountId) {
+        this.accountId = accountId;
     }
 
-    public Category getCategory() {
-        return category;
+    public Long getCategoryId() {
+        return categoryId;
     }
 
-    public void setCategory(Category category) {
-        this.category = category;
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 }

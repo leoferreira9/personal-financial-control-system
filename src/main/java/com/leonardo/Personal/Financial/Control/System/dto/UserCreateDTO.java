@@ -1,36 +1,26 @@
-package com.leonardo.Personal.Financial.Control.System.entity;
+package com.leonardo.Personal.Financial.Control.System.dto;
 
-import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
-@Entity(name = "users")
-public class User {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+public class UserCreateDTO {
 
     @NotBlank
-    @Column(nullable = false, length = 150)
+    @Size(max = 150)
     private String name;
 
-    @NotBlank()
-    @Column(nullable = false, unique = true, length = 120)
+    @Email
+    @NotBlank
+    @Size(max = 120)
     private String email;
 
     @NotBlank
-    @Column(nullable = false, length = 50)
+    @Size(max = 50)
+    @Size(min = 8)
     private String password;
 
-    public User(){}
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
+    public UserCreateDTO(){}
 
     public String getName() {
         return name;

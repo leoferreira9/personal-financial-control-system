@@ -1,43 +1,29 @@
-package com.leonardo.Personal.Financial.Control.System.entity;
+package com.leonardo.Personal.Financial.Control.System.dto;
 
 import com.leonardo.Personal.Financial.Control.System.enums.AccountType;
-import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 import java.math.BigDecimal;
 
-@Entity
-public class Account {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+public class AccountCreateDTO {
 
     @NotBlank
-    @Column(nullable = false, length = 150)
+    @Size(max = 150)
     private String name;
 
-    @Enumerated(EnumType.STRING)
+    @NotNull
     private AccountType type;
 
     @DecimalMin("0.0")
-    @Column(nullable = false)
-    private BigDecimal initialBalance = BigDecimal.ZERO;
+    private BigDecimal initialBalance;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    @NotNull
+    private Long userId;
 
-    public Account(){}
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
+    public AccountCreateDTO(){}
 
     public String getName() {
         return name;
@@ -63,11 +49,11 @@ public class Account {
         this.initialBalance = initialBalance;
     }
 
-    public User getUser() {
-        return user;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 }

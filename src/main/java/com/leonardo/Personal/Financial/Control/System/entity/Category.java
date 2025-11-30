@@ -2,7 +2,6 @@ package com.leonardo.Personal.Financial.Control.System.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
 
 @Entity
 public class Category {
@@ -12,7 +11,6 @@ public class Category {
     private long id;
 
     @NotBlank
-    @Size(max = 150)
     @Column(nullable = false, length = 150)
     private String name;
 
@@ -21,11 +19,6 @@ public class Category {
     private User user;
 
     public Category(){}
-
-    public Category(String name, User user) {
-        this.name = name;
-        this.user = user;
-    }
 
     public long getId() {
         return id;
