@@ -24,6 +24,12 @@ public class User {
 
     public User(){}
 
+    public User(String password, String email, String name) {
+        this.password = password;
+        this.email = email;
+        this.name = name;
+    }
+
     public long getId() {
         return id;
     }

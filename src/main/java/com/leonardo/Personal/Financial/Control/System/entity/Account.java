@@ -31,6 +31,13 @@ public class Account {
 
     public Account(){}
 
+    public Account(String name, AccountType type, BigDecimal initialBalance, User user) {
+        this.name = name;
+        this.type = type;
+        this.initialBalance = initialBalance;
+        this.user = user;
+    }
+
     public long getId() {
         return id;
     }
