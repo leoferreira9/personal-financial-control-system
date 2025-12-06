@@ -29,6 +29,7 @@ public class CategoryController {
         return categoryService.findCategoryById(id);
     }
 
+    @GetMapping
     public List<CategoryDTO> findAll(){
         return categoryService.findAllCategories();
     }
