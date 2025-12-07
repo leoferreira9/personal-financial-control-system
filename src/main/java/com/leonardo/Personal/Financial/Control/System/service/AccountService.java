@@ -9,6 +9,7 @@ import com.leonardo.Personal.Financial.Control.System.repository.AccountReposito
 import com.leonardo.Personal.Financial.Control.System.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -24,7 +25,12 @@ public class AccountService {
 
     public AccountDTO createAccount(AccountCreateDTO dto){
         User user = userRepository.findById(dto.getUserId()).orElseThrow(() -> new EntityNotFound("User not found with ID: " + dto.getUserId()));
-        Account account = new Account(dto.getName(), dto.getType(), dto.getInitialBalance(), user);
+
+        BigDecimal balance = dto.getInitialBalance() != null
+                ? dto.getInitialBalance()
+                : BigDecimal.ZERO;
+
+        Account account = new Account(dto.getName(), dto.getType(), balance, user);
         Account saved = accountRepository.save(account);
         return new AccountDTO(saved);
     }

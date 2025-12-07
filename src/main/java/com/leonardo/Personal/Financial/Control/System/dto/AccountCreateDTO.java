@@ -1,6 +1,7 @@
 package com.leonardo.Personal.Financial.Control.System.dto;
 
 import com.leonardo.Personal.Financial.Control.System.enums.AccountType;
+import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -17,7 +18,7 @@ public class AccountCreateDTO {
     @NotNull
     private AccountType type;
 
-    @DecimalMin("0.0")
+    @Nullable
     private BigDecimal initialBalance;
 
     @NotNull
