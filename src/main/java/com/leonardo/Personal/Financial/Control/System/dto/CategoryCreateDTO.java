@@ -1,6 +1,7 @@
 package com.leonardo.Personal.Financial.Control.System.dto;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 public class CategoryCreateDTO {
@@ -9,7 +10,7 @@ public class CategoryCreateDTO {
     @Size(max = 150)
     private String name;
 
-    @NotBlank
+    @NotNull
     private Long userId;
 
     public CategoryCreateDTO(){}
