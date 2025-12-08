@@ -29,6 +29,9 @@ public class TransactionService {
         Account account = accountRepository.findById(dto.getAccountId()).orElseThrow(() -> new EntityNotFound("Account not found with ID: " + dto.getAccountId()));
         Category category = categoryRepository.findById(dto.getCategoryId()).orElseThrow(() -> new EntityNotFound("Category not found with ID: " + dto.getCategoryId()));
 
+        if(account.getUser().getId() != dto.getUserId()) throw new RuntimeException("Account does not belong to this user!");
+        if(category.getUser().getId() != dto.getUserId()) throw new RuntimeException("Category does not belong to this user!");
+
         Transaction transaction = new Transaction(dto.getDescription(), dto.getAmount(), dto.getTransactionType(), dto.getDate(), account, category);
         Transaction saved = transactionRepository.save(transaction);
         return new TransactionDTO(saved);
@@ -48,6 +51,9 @@ public class TransactionService {
         Transaction transaction = transactionRepository.findById(id).orElseThrow(() -> new EntityNotFound("Transaction not found with ID: " + id));
         Account account = accountRepository.findById(dto.getAccountId()).orElseThrow(() -> new EntityNotFound("Account not found with ID: " + dto.getAccountId()));
         Category category = categoryRepository.findById(dto.getCategoryId()).orElseThrow(() -> new EntityNotFound("Category not found with ID: " + dto.getCategoryId()));
+
+        if(account.getUser().getId() != dto.getUserId()) throw new RuntimeException("Account does not belong to this user!");
+        if(category.getUser().getId() != dto.getUserId()) throw new RuntimeException("Category does not belong to this user!");
 
         transaction.setTransactionType(dto.getTransactionType());
         transaction.setAccount(account);
