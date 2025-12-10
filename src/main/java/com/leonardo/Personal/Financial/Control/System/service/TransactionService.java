@@ -11,6 +11,7 @@ import com.leonardo.Personal.Financial.Control.System.repository.CategoryReposit
 import com.leonardo.Personal.Financial.Control.System.repository.TransactionRepository;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -62,6 +63,16 @@ public class TransactionService {
 
     public void deleteTransaction(Long id){
         Transaction transaction = transactionRepository.findById(id).orElseThrow(() -> new EntityNotFound("Transaction not found with ID: " + id));
+        BigDecimal value;
+        if(transaction.getTransactionType().equals(TransactionType.INCOME)){
+            value = transaction.getAccount().getInitialBalance().subtract(transaction.getAmount());
+            transaction.getAccount().setInitialBalance(value);
+        } else {
+            value = transaction.getAccount().getInitialBalance().add(transaction.getAmount());
+            transaction.getAccount().setInitialBalance(value);
+        }
+
+        accountRepository.save(transaction.getAccount());
         transactionRepository.delete(transaction);
     }
 }
