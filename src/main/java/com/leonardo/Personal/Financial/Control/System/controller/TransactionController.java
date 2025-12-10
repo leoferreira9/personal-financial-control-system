@@ -34,11 +34,6 @@ public class TransactionController {
         return transactionService.findAllTransactions();
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<TransactionDTO> update(@PathVariable Long id, @RequestBody @Valid TransactionCreateDTO dto){
-        return ResponseEntity.status(200).body(transactionService.updateTransaction(id, dto));
-    }
-
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id){
         transactionService.deleteTransaction(id);
