@@ -35,7 +35,7 @@ public class AccountController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<AccountDTO> update(@PathVariable Long id, @RequestBody AccountCreateDTO dto){
+    public ResponseEntity<AccountDTO> update(@PathVariable Long id, @RequestBody @Valid AccountCreateDTO dto){
         return ResponseEntity.status(200).body(accountService.updateAccount(id, dto));
     }
 
